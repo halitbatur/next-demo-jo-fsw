@@ -1,95 +1,86 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import Image from "next/image";
+import styles from "./page.module.css";
+import StudentList from "@/components/StudentList";
+import GraduationList from "@/components/GraduationList";
+import { useState } from "react";
+const students = [
+  {
+    name: "Ranemm",
+    country: "Jordan",
+    city: "Madaba",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Khaled",
+    city: "Istanbul",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Ammar",
+    country: "UK",
+    city: "London",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Derya",
+    country: "Turkey",
+    city: "Bursa",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+];
 
 export default function Home() {
+  const [showStudent, setShowStudent] = useState(false);
+  // Create a form to take use input
+  // Then use that user input and add it to the students array
+
+  // When the user clicks on the showStudentList button
+  // change the showStudent state to be true DONE
+  // we should redender the student  component
+  // and change the text on the button to be from show to hide
+
+  const handleButtonClick = () => {
+    setShowStudent((prevState) => {
+      return !prevState;
+    });
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <button onClick={handleButtonClick}>
+        {showStudent ? "Hide" : "Show"} Student List
+      </button>
+      {showStudent && <StudentList studentList={students} />}
+      <GraduationList />
     </main>
-  )
+  );
 }
+
+// const myName = "Khaled";
+
+// // map
+// // Arrray full of object that inlcude names age ,etc
+// // Using map I can return an html element that renders these data in a different way
+
+// const generateHelloMessage = (name) => {
+//   return (
+//     <div>
+//       <h2>{name}</h2>
+//       <p>lorem impsum hello how are you </p>
+//     </div>
+//   );
+// };
