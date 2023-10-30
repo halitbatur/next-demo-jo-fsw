@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import StudentList from "@/components/StudentList";
 import GraduationList from "@/components/GraduationList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StudentForm from "@/components/StudentForm";
 
 const initialStudents = [
@@ -22,8 +22,22 @@ const initialStudents = [
 export default function Home() {
   const [showStudent, setShowStudent] = useState(true);
   const [students, setStudents] = useState(initialStudents);
+
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   // Create a form to take use input
   // Then use that user input and add it to the students array
+
+  useEffect(() => {
+    fetch("https://api.github.com/users")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+  }, []);
+
+  console.log(data);
 
   // When the user clicks on the showStudentList button
   // change the showStudent state to be true DONE
@@ -64,16 +78,37 @@ export default function Home() {
     });
   };
 
+  if (isLoading) return <p>Loading...</p>;
+  if (!data) return <p>No profile data is found</p>;
+
+  if (data?.message)
+    return (
+      <div>
+        <p>Message:{data.message}</p>
+        <a href={data.documentation_url} target="_blank">
+          please visit docs
+        </a>
+      </div>
+    );
+
   return (
     <main className={styles.main}>
-      <button onClick={handleButtonClick}>
+      {/* <button onClick={handleButtonClick}>
         {showStudent ? "Hide" : "Show"} Student List
       </button>
       <div style={{ display: "flex", marginTop: "24px" }}>
         <StudentForm addStudent={addStudent} />
         {showStudent && <StudentList studentList={students} />}
-        {/* <GraduationList /> */}
-      </div>
+        <GraduationList />
+      </div> */}
+      {data.map((user) => {
+        return (
+          <div>
+            <p>Login: {user.login}</p>
+            <p>id: {user.id}</p>
+          </div>
+        );
+      })}
     </main>
   );
 }
