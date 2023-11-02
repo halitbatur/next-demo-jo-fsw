@@ -6,12 +6,44 @@ import StudentList from "@/components/StudentList";
 import GraduationList from "@/components/GraduationList";
 import { useState, useEffect } from "react";
 import StudentForm from "@/components/StudentForm";
+import Link from "next/link";
 
 const initialStudents = [
   {
     name: "Ranemm",
     country: "Jordan",
     city: "Madaba",
+    id: "2135213",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Khaled",
+    country: "Turkey",
+    id: "341515",
+    city: "Istanbul",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Kutay",
+    country: "Turkey",
+    city: "Sakarya",
+    id: "51325",
+    address: {
+      street: "52",
+      apartment: "30",
+    },
+  },
+  {
+    name: "Ammar",
+    country: "UK",
+    city: "London",
+    id: "21355",
     address: {
       street: "52",
       apartment: "30",
@@ -95,20 +127,21 @@ export default function Home() {
     <main className={styles.main}>
       {/* <button onClick={handleButtonClick}>
         {showStudent ? "Hide" : "Show"} Student List
-      </button>
+      </button> */}
+      <Link href="/students">Go to the Student Page</Link>
       <div style={{ display: "flex", marginTop: "24px" }}>
-        <StudentForm addStudent={addStudent} />
-        {showStudent && <StudentList studentList={students} />}
-        <GraduationList />
-      </div> */}
-      {data.map((user) => {
+        {/* <StudentForm addStudent={addStudent} /> */}
+
+        {/* <GraduationList /> */}
+      </div>
+      {/* {data.map((user) => {
         return (
           <div>
             <p>Login: {user.login}</p>
             <p>id: {user.id}</p>
           </div>
         );
-      })}
+      })} */}
     </main>
   );
 }
